@@ -10,10 +10,10 @@ function pressButton(buttonNumber) {
         if (err) throw err;
         gpio.write(buttonNumber, true, function(err) {
             if (err) throw err;
-            sleep(100).then(() => {
+            module.exports.sleep(100).then(() => {
                 gpio.write(buttonNumber, false, function(err) {
                     if (err) throw err;
-                    sleep(100).then(() => {
+                    module.exports.sleep(100).then(() => {
                         gpio.write(buttonNumber, true, function(err) {
                             if (err) throw err;
                             console.log('Written to pin');
