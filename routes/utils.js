@@ -8,9 +8,19 @@ function pressButton(buttonNumber) {
     
     function write(err) {
         if (err) throw err;
-        gpio.write(buttonNumber, false, function(err) {
+        gpio.write(buttonNumber, true, function(err) {
             if (err) throw err;
-            console.log('Written to pin');
+            sleep(100).then(() => {
+                gpio.write(buttonNumber, false, function(err) {
+                    if (err) throw err;
+                    sleep(100).then(() => {
+                        gpio.write(buttonNumber, true, function(err) {
+                            if (err) throw err;
+                            console.log('Written to pin');
+                        });
+                    });
+                });
+            });
         });
     }
 }
