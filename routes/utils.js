@@ -15,36 +15,36 @@ function pressButton(buttonNumber) {
     }
 }
 
-// return 1 if success, otherwise return 0
-function start() {
-    pressButton(startButton)
-    return 1;
+module.exports = {
+    // return 1 if success, otherwise return 0
+    start: function () {
+        pressButton(startButton)
+        return 1;
+    },
+
+    stop: function () {
+        return start()
+    },
+
+    // return 1 if success, otherwise return 0
+    timer: function () {
+        pressButton(timerButton)
+        return 1;
+    },
+
+    tempPlus: function () {
+        return 1
+    },
+
+    tempMinus: function () {
+        return 1
+    },
+
+    mode: function () {
+        return 1
+    },
+
+    sleep: function (ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 }
-
-function stop() {
-    return start()
-}
-
-// return 1 if success, otherwise return 0
-function timer() {
-    pressButton(timerButton)
-    return 1;
-}
-
-function tempPlus() {
-    return 1
-}
-
-function tempMinus() {
-    return 1
-}
-
-function mode() {
-    return 1
-}
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-export {start, timer, sleep}

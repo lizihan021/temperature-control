@@ -1,13 +1,14 @@
 var express = require('express');
 var router = express.Router();
-import {start, timer, sleep} from 'utils.js';
+var utils = require('./utils');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Temperature Control' });
-  start();
-  await sleep(1000);
-  timer();
+  utils.start();
+  utils.sleep(1000).then(() => {
+    utils.timer();
+  });
 });
 
 module.exports = router;
