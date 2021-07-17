@@ -9,7 +9,7 @@ function startHeater() {
   });
 }
 
-var timeout = 1000 * 60 * 60 * 24 * 365 * 10
+var timeout = 2147483647
 var starttime = new Date().getTime() + timeout
 var timeoutHandler = setTimeout(startHeater, timeout);
 
