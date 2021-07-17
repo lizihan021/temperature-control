@@ -9,14 +9,19 @@ function startHeater() {
   });
 }
 
-var startTime = new Date("2021/07/15 00:24:00").getTime()
+var startTime = new Date("2021/07/17 06:24:00").getTime()
 var currTime = new Date().getTime()
+var currTimeStr = new Date().toString()
 
 setTimeout(startHeater, startTime - currTime);
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Temperature Control' });
+router.get('/:time', function(req, res, next) {
+  res.render('index', {
+    title: 'Temperature Control',
+    timeout: startTime - currTime,
+    currentTime: currTimeStr
+  });
 });
 
 module.exports = router;
