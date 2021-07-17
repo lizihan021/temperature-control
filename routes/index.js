@@ -9,18 +9,28 @@ function startHeater() {
   });
 }
 
-var startTime = new Date("2021/07/17 06:24:00").getTime()
-var currTime = new Date().getTime()
-var currTimeStr = new Date().toString()
-
-setTimeout(startHeater, startTime - currTime);
+var timeout = 1000 * 60 * 60 * 24 * 365 * 10
+var starttime = new Date().getTime() + timeout
+var timeoutHandler = setTimeout(startHeater, timeout);
 
 /* GET home page. */
-router.get('/:time', function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.render('index', {
     title: 'Temperature Control',
-    timeout: startTime - currTime,
-    currentTime: currTimeStr
+    timeoutInMilli: starttime - new Date().getTime(),
+    currentTime: new Date().toString()
+  });
+});
+
+router.get('/:timeoutInHours', function(req, res, next) {
+  var timeoutInMilliSeconds = req.params.timeoutInHours * 60 * 60 * 1000
+  starttime = new Date().getTime() + timeoutInMilliSeconds
+  clearTimeout(timeoutHandler)
+  timeoutHandler = setTimeout(startHeater, timeoutInMilliSeconds)
+  res.render('index', {
+    title: 'Temperature Control',
+    timeoutInMilli: starttime - new Date().getTime(),
+    currentTime: new Date().toString()
   });
 });
 
