@@ -3,5 +3,15 @@ extends layout
 block content
   h1= title
   p Welcome
-  p Will start the heater in: #{new Date(timeoutInMilli).toISOString().substr(11, 8)}
+  p
+    - if(timeoutInMilli < 0) {
+        | Will not start the heater
+    - } else {
+        | Will tart the heater in: #{Math.floor(timeoutInMilli / 1000 / 3600 / 24)} day #{new Date(timeoutInMilli).toISOString().substr(11, 8)}
+    - }
+  
   p Current Time: #{currentTime}
+  p Start History:
+  ul
+    each element in startHistory
+      li= element

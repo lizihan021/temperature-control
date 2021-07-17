@@ -2,23 +2,26 @@ var express = require('express');
 var router = express.Router();
 var utils = require('./utils');
 
+var startHistory = []
+
 function startHeater() {
   utils.start();
   utils.sleep(1000).then(() => {
     utils.timer();
   });
+  startHistory.push("start at " + new Date().toString())
 }
 
-var timeout = 2147483647
-var starttime = new Date().getTime() + timeout
-var timeoutHandler = setTimeout(startHeater, timeout);
+var starttime = new Date().getTime() - 1
+var timeoutHandler
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', {
     title: 'Temperature Control',
     timeoutInMilli: starttime - new Date().getTime(),
-    currentTime: new Date().toString()
+    currentTime: new Date().toString(),
+    startHistory: startHistory
   });
 });
 
@@ -30,7 +33,8 @@ router.get('/:timeoutInHours', function(req, res, next) {
   res.render('index', {
     title: 'Temperature Control',
     timeoutInMilli: starttime - new Date().getTime(),
-    currentTime: new Date().toString()
+    currentTime: new Date().toString(),
+    startHistory: startHistory
   });
 });
 
